@@ -1,7 +1,7 @@
 import {inject, injectable} from 'inversify'
 import Knex from 'knex'
 import * as constants from '@appRoot/constants'
-import {Payment} from '@appRoot/types'
+import {HistoryRequestData, Payment, PaymentRequestData} from '@appRoot/types'
 import {BaseError} from '@appRoot/errors'
 
 @injectable()
@@ -27,8 +27,25 @@ export class PaymentService {
     }
   }
 
-  // todo not partial but exclude id and fix return type
-  async createPayment(data: Partial<Payment>): Promise<Payment> {
+  async getPaymentHistory(data: HistoryRequestData): Promise<Array<Payment>> {
+    try {
+      this.logger.log('PaymentService.getPaymentHistory: getting payment history by', {data})
+
+      return await this.dbConnection('payment')
+        .where('contractId', data.contractId)
+        .whereBetween('time', [data.startDate, data.endDate])
+        .whereNull('deletedAt')
+        .returning('*')
+    } catch (err) {
+      throw new BaseError('PaymentService.getPaymentHistory: failed getting payment history', {
+        //todo data data data data
+        payload: {data: {data}},
+        rootCause: err
+      })
+    }
+  }
+
+  async createPayment(data: PaymentRequestData): Promise<Payment> {
     try {
       this.logger.log('PaymentService.createPayment: creating payment', {data})
 
@@ -48,8 +65,7 @@ export class PaymentService {
     }
   }
 
-  // todo not partial but exclude id and fix return type
-  async updatePayment(id: string, data: Partial<Payment>): Promise<Payment> {
+  async updatePayment(id: string, data: PaymentRequestData): Promise<Payment> {
     try {
       this.logger.log('PaymentService.updatePayment: updating payment', data)
 

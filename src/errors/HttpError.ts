@@ -1,4 +1,4 @@
-import {BaseError} from '@appRoot/errors'
+import {BaseError} from './BaseError'
 import {HttpErrorData} from '@appRoot/types'
 
 

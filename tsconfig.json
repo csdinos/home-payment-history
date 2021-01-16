@@ -8,15 +8,15 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "experimentalDecorators": true,
-    "outDir": "dist",
+    "outDir": "build",
     "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "@appRoot/*": [
-        "./src/*"
-      ]
+      "@appRoot/*": ["./src/*"]
     }
   },
   "include": [
-    "src/**/*"
-  ]
+    "./src/**/*"
+  ],
+  "exclude": ["build", "node_modules"]
 }

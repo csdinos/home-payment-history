@@ -2,8 +2,9 @@ import {inject, injectable} from 'inversify'
 import * as constants from '@appRoot/constants'
 import {PaymentService} from '@appRoot/services'
 import {NextFunction, Request, Response} from 'express'
-import {Payment} from '@appRoot/types'
+import {HistoryRequestData, Payment, PaymentRequestData} from '@appRoot/types'
 import {HttpError} from '@appRoot/errors'
+import {PaymentHistory} from '@appRoot/types/PaymentHistory'
 
 @injectable()
 export class PaymentController {
@@ -60,7 +61,7 @@ export class PaymentController {
   }
 
   async createPayment(req: Request, res: Response, next: NextFunction) {
-    const data = req.body
+    const data: PaymentRequestData = req.body
 
     this.logger.log(`PaymentController.createPayment: preparing to create payment`, {data})
 
@@ -79,7 +80,7 @@ export class PaymentController {
   }
 
   async updatePayment(req: Request, res: Response, next: NextFunction) {
-    const data = req.body
+    const data: PaymentRequestData = req.body
     const {id} = req.params
 
     this.logger.log(`PaymentController.updatePayment: preparing to update payment`, {id, data})
@@ -95,6 +96,34 @@ export class PaymentController {
           data: req.body
         }
       }))
+    }
+  }
+
+  async getPaymentHistory(req: Request, res: Response, next: NextFunction) {
+    const data: HistoryRequestData = req.body
+
+    this.logger.log(`PaymentController.getPaymentHistory: preparing to get payment history`, {data})
+
+    try {
+      const payments: Array<Payment> = (await this.paymentService.getPaymentHistory(data))
+      const paymentHistory: PaymentHistory = PaymentController.buildPaymentHistory(payments)
+
+      res.send(paymentHistory)
+    } catch (err) {
+      return next(new HttpError(`PaymentController.getPaymentHistory: failed to get payment history`, {
+        rootCause: err,
+        payload: {
+          data: req.body
+        }
+      }))
+    }
+  }
+
+  // Note: static because it does not touch/adapt the state of the class, not sure though whether it should still be static or not
+  private static buildPaymentHistory(payments: Array<Payment>): PaymentHistory {
+    return {
+      items: payments,
+      sum: payments.map(p => p.value).reduce((sum, val) => sum + val, 0)
     }
   }
 
