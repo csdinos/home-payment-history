@@ -1,0 +1,5 @@
+export const DB_CONNECTION = 'db_connection'
+export const LOGGER = 'logger'
+export const REQUEST = 'hph:request'
+export const RESPONSE = 'hph:response'
+export const NEXT = 'hph:next'

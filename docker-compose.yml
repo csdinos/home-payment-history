@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  hph_service:
+    container_name: hph_service
+    image: dinos/hph_service:0.0.1
+    build:
+      context: .
+#    command: sh -c 'yarn migrate:latest'
+    ports:
+      - "3001:3001"
+    environment:
+      - EXTERNAL_PORT=3001
+      - DB_USER=parserdb
+      - DB_PASSWORD=iamsecure!
+      - DB_DATABASE=postgres
+      - DB_HOST=hph_db # NAME OF THE SERVICE
+    depends_on:
+      - hph_db
+  hph_db:
+    container_name: hph_db
+    image: "postgres:12"
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=parserdb
+      - POSTGRES_PASSWORD=iamsecure!
+      - POSTGRES_DB=postgres
+    volumes:
+      - nps_data:/var/lib/postgresql/data
+volumes:
+  nps_data: {}
