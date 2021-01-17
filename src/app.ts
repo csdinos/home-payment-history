@@ -7,9 +7,10 @@ import {registerPaymentHandlers} from '@appRoot/handlers'
 import {setHeaders} from './middlewares'
 import {globalErrorHandler} from '@appRoot/middlewares'
 
-const app: Express = express()
+export const startApp = (): Express => {
+  const app: Express = express()
 
-const appContainer = setUpContainer(console)
+  const appContainer = setUpContainer(console)
 
 // app.use((req: EnrichedRequest, res: Response, next: NextFunction) => {
 //   req.container = appContainer.createChild()
@@ -24,12 +25,12 @@ const appContainer = setUpContainer(console)
 //   next()
 // })
 
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(setHeaders)
+  app.use(bodyParser.urlencoded({extended: true}))
+  app.use(setHeaders)
 
-registerPaymentHandlers(app, appContainer)
+  registerPaymentHandlers(app, appContainer)
 
-app.use(globalErrorHandler)
+  app.use(globalErrorHandler)
 
-console.log('READY')
-app.listen(process.env.EXTERNAL_PORT) //DEF in docker.compose.yml
+  return app
+}

@@ -88,6 +88,10 @@ export class PaymentController {
     try {
       const payment: Payment = (await this.paymentService.updatePayment(id, data))
 
+      if (!payment) {
+        return next(new HttpError('Not found', {status: 404, payload: {id, data}}))
+      }
+
       res.send(payment)
     } catch (err) {
       return next(new HttpError(`PaymentController.updatePayment: failed to update payment`, {

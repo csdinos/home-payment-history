@@ -4,14 +4,14 @@
   "main": "app.ts",
   "license": "MIT",
   "scripts": {
-    "start": "EXTERNAL_PORT=3001 DB_USER=parserdb DB_PASSWORD=iamsecure! DB_DATABASE=postgres DB_HOST=localhost ts-node -r tsconfig-paths/register ./src/app.ts",
+    "start": "EXTERNAL_PORT=3001 DB_USER=parserdb DB_PASSWORD=iamsecure! DB_DATABASE=postgres DB_HOST=localhost DB_PORT=5431 ts-node -r tsconfig-paths/register ./src/index.ts",
     "build": "tsc --project tsconfig.json",
     "seed:make": "knex seed:make -x ts",
     "migrate:make": "knex migrate:make -x ts",
     "migrate:latest": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
     "seed:run": "knex seed:run",
-    "test": "jest --colors"
+    "test": "jest --colors --silent"
   },
   "dependencies": {
     "body-parse": "^0.1.0",
@@ -24,13 +24,20 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-typescript": "^7.12.7",
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.20",
     "@types/joi": "^17.2.3",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.3",
+    "@types/supertest": "^2.0.10",
+    "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
+    "supertest": "^6.1.1",
+    "testcontainers": "^6.4.1",
     "ts-jest": "^26.4.4",
-    "tsconfig-paths": "^3.9.0"
+    "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.1.3"
   }
 }

@@ -14,7 +14,7 @@ RUN yarn build
 RUN echo '#!/bin/sh' > init.sh
 RUN echo 'yarn migrate:latest' >> init.sh
 RUN echo 'yarn seed:run' >> init.sh
-RUN echo 'node --trace-warnings ./build/app.js' >> init.sh
+RUN echo 'node --trace-warnings ./build/src/index.js' >> init.sh
 RUN cat init.sh
 RUN chmod +x init.sh
 

@@ -17,5 +17,7 @@ module.exports = {
     {
       prefix: '<rootDir>/'
     }
-  )
+  ),
+  transform: {"\\.ts$": ['ts-jest']},
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts',],
 };
