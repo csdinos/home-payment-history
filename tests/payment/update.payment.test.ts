@@ -54,7 +54,7 @@ describe('Update payment endpoint scenarios', () => {
   })
 
   it('When I try to update all the fields of an existing payment, I should get 200 with the updated payment', async () => {
-    const paymentToUpdate = paymentSeedData[1]
+    const paymentToUpdate = paymentSeedData[2]
     const dataToUpdate = {
       contractId: 121212,
       description: 'Ich komme aus FETA',
@@ -65,7 +65,7 @@ describe('Update payment endpoint scenarios', () => {
 
     return (await request
         .agent(startApp())
-        .put(`/payment/2`)
+        .put(`/payment/3`)
         .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .send(dataToUpdate)
         .expect(200)
@@ -79,7 +79,7 @@ describe('Update payment endpoint scenarios', () => {
 
           return (await request
               .agent(startApp())
-              .get(`/payment/2`)
+              .get(`/payment/3`)
               .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
               .expect(200)
               .expect((res: Response) => {
