@@ -18,3 +18,4 @@
 1. Simply run `yarn test`. Note that jest is silenced by default so if you want `console.log()` to appear you have to change it in the package.json
 # Notes 
 1. If you ever want to reset the database, you can rollback by running `yarn migrate:rollback`. Note that you have to migrate again to use the service.
+2. When using the API, don't forget to add Basic auth

@@ -15,6 +15,8 @@ services:
       - DB_PORT=5432
       - DB_HOST=hph_db
       - NODE_ENV=production
+      - BASIC_AUTH_NAME=rick
+      - BASIC_AUTH_PASS=morty
     depends_on:
       - hph_db
   hph_db:

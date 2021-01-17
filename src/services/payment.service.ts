@@ -74,6 +74,7 @@ export class PaymentService {
           updatedAt: 'NOW()',
         })
         .where('id', id)
+        .whereNull('deletedAt')
         .returning('*'))
         .pop()
     } catch (err) {
