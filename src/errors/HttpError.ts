@@ -1,7 +1,6 @@
 import {BaseError} from './BaseError'
 import {HttpErrorData} from '@appRoot/types'
 
-
 export class HttpError extends BaseError {
   public status: number
 

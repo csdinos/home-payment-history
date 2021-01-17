@@ -38,8 +38,7 @@ export class PaymentService {
         .returning('*')
     } catch (err) {
       throw new BaseError('PaymentService.getPaymentHistory: failed getting payment history', {
-        //todo data data data data
-        payload: {data: {data}},
+        payload: {data},
         rootCause: err
       })
     }
@@ -59,7 +58,7 @@ export class PaymentService {
         .pop()
     } catch (err) {
       throw new BaseError('PaymentService.getPayment: failed getting payment', {
-        payload: {data: {data}},
+        payload: {data},
         rootCause: err
       })
     }

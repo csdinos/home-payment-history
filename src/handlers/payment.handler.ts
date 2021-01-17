@@ -3,7 +3,12 @@ import {Container} from 'inversify'
 import bodyParser from 'body-parser'
 import {createValidator} from 'express-joi-validation'
 import {PaymentController} from '@appRoot/controllers'
-import {CreatePaymentSchema, IdentifierPaymentSchema, UpdatePaymentSchema, PaymentHistorySchema} from '@appRoot/validation'
+import {
+  CreatePaymentSchema,
+  IdentifierPaymentSchema,
+  UpdatePaymentSchema,
+  PaymentHistorySchema
+} from '@appRoot/validation'
 
 export const registerPaymentHandlers = (app: Express, container: Container) => {
   const paymentController: PaymentController = container.get(PaymentController)
@@ -49,8 +54,4 @@ export const registerPaymentHandlers = (app: Express, container: Container) => {
     ],
     paymentController.updatePayment.bind(paymentController)
   )
-
-  app.get('/', (req: Request, res: Response) => {
-    res.send({greeting: 'hi'})
-  })
 }

@@ -11,5 +11,5 @@ const releaseResources = async () => {
   server.close()
 }
 
-process.on('SIGINT', releaseResources);
-process.on('SIGTERM', releaseResources);
+process.on('SIGINT', releaseResources)
+process.on('SIGTERM', releaseResources)

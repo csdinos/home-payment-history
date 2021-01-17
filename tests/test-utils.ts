@@ -31,9 +31,9 @@ const createDbContainer = async () => {
 
 const setUpEnvironmentVariables = (container: StartedTestContainer) => {
   process.env.EXTERNAL_PORT = '3001'
-  process.env.DB_USER='test'
-  process.env.DB_PASSWORD='test'
-  process.env.DB_DATABASE='postgres'
+  process.env.DB_USER = 'test'
+  process.env.DB_PASSWORD = 'test'
+  process.env.DB_DATABASE = 'postgres'
   process.env.DB_PORT = String(container.getMappedPort(5432))
-  process.env.DB_HOST= container.getHost()
+  process.env.DB_HOST = container.getHost()
 }

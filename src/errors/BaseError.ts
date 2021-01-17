@@ -1,7 +1,6 @@
 import {parseError} from '@appRoot/utils'
 import {BaseErrorData, ParsedRootCause} from '@appRoot/types'
 
-// todo types
 export class BaseError extends Error {
   public error_message: string
   public payload: object

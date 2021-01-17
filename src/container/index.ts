@@ -12,7 +12,7 @@ export function setUpContainer(logger: Console): Container {
 
   container = new Container({defaultScope: 'Singleton'})
 
-  // contants
+  // constants
   container.bind(constants.DB_CONNECTION).toConstantValue(connectToDatabase())
   container.bind(constants.LOGGER).toConstantValue(console)
 

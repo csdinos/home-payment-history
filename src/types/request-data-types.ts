@@ -6,4 +6,4 @@ export type HistoryRequestData = {
   endDate: string
 }
 
-export type PaymentRequestData = Pick<Payment, 'contractId' |'description'| 'value'| 'time'| 'isImported'>
+export type PaymentRequestData = Pick<Payment, 'contractId' | 'description' | 'value' | 'time' | 'isImported'>

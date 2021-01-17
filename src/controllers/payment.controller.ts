@@ -123,7 +123,7 @@ export class PaymentController {
     }
   }
 
-  // Note: static because it does not touch/adapt the state of the class, not sure though whether it should still be static or not
+  // Note to self: static because it does not touch/adapt the state of the class, not sure though whether it should still be static or not
   private static buildPaymentHistory(payments: Array<Payment>): PaymentHistory {
     return {
       items: payments,
