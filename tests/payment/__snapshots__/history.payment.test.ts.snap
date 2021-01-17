@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Payment history endpoint scenarios After deleting a payment on the range of the request, it should not include it in the history 1`] = `
+Array [
+  Object {
+    "contractId": 17689,
+    "createdAt": "2016-11-09T12:57:09.708Z",
+    "deletedAt": null,
+    "description": "Rent to be paid",
+    "id": 2,
+    "isImported": false,
+    "time": "2016-11-09T00:00:00.000Z",
+    "updatedAt": "2016-11-09T12:57:09.709Z",
+    "value": -100,
+  },
+  Object {
+    "contractId": 17689,
+    "createdAt": "2016-11-09T12:57:09.708Z",
+    "deletedAt": null,
+    "description": "Rent to be paid again",
+    "id": 3,
+    "isImported": false,
+    "time": "2016-11-15T00:00:00.000Z",
+    "updatedAt": "2016-11-09T12:57:09.709Z",
+    "value": -150,
+  },
+  Object {
+    "contractId": 17689,
+    "createdAt": "2016-11-09T12:57:09.708Z",
+    "deletedAt": null,
+    "description": "Rent paid for this month",
+    "id": 4,
+    "isImported": false,
+    "time": "2016-10-09T00:00:00.000Z",
+    "updatedAt": "2016-11-09T12:57:09.709Z",
+    "value": 120,
+  },
+]
+`;
+
 exports[`Payment history endpoint scenarios When requesting the payment history (all payments), it should retrieve a correct history according the request data 1`] = `
 Array [
   Object {

@@ -24,17 +24,33 @@ describe('Create payment endpoint scenarios', () => {
       time: '2010-01-09T15:06:00.000Z',
       isImported: true
     }
+
     return (await request
-        .agent(startApp())
-        .post('/payment/')
-        .send(creationData)
-        .expect(201)
-        .expect((res: Response) => {
-          expect(res.body).toMatchObject({
-            ...res.body,
-            ...creationData
-          })
+      .agent(startApp())
+      .post('/payment/')
+      .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+      .send(creationData)
+      .expect(201)
+      .expect(async (res: Response) => {
+        const {id} = res.body
+        const createdPayment = res.body
+
+        expect(res.body).toMatchObject({
+          ...res.body,
+          ...creationData
         })
+
+        return (await request
+          .agent(startApp())
+          .get(`/payment/${id}`)
+          .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+          .expect(200)
+          .expect((res: Response) => {
+            expect(res.body).toMatchObject({
+              ...createdPayment
+            })
+          }))
+      })
     )
   })
 })

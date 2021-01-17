@@ -28,13 +28,27 @@ describe('Update payment endpoint scenarios', () => {
         .agent(startApp())
         .put(`/payment/2`)
         .send((dataToUpdate))
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .expect(200)
-        .expect((res: Response) => {
+        .expect(async (res: Response) => {
+          const updatedPayment = res.body
           expect(res.body).toMatchObject({
             ...paymentToUpdate,
             ...res.body,
             ...dataToUpdate
           })
+
+          return (await request
+              .agent(startApp())
+              .get(`/payment/2`)
+              .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+              .expect(200)
+              .expect((res: Response) => {
+                expect(res.body).toMatchObject({
+                  ...updatedPayment
+                })
+              })
+          )
         })
     )
   })
@@ -52,14 +66,28 @@ describe('Update payment endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .put(`/payment/2`)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .send(dataToUpdate)
         .expect(200)
-        .expect((res: Response) => {
+        .expect(async (res: Response) => {
+          const updatedPayment = res.body
           expect(res.body).toMatchObject({
             ...paymentToUpdate,
             ...res.body,
             ...dataToUpdate
           })
+
+          return (await request
+              .agent(startApp())
+              .get(`/payment/2`)
+              .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+              .expect(200)
+              .expect((res: Response) => {
+                expect(res.body).toMatchObject({
+                  ...updatedPayment
+                })
+              })
+          )
         })
     )
   })
@@ -68,6 +96,7 @@ describe('Update payment endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .put(`/payment/123456`)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .send({value: 100})
         .expect(404)
         .expect((res: Response) => {

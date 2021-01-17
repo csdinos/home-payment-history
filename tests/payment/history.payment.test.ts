@@ -27,6 +27,7 @@ describe('Payment history endpoint scenarios', () => {
         .agent(startApp())
         .get('/payment/history')
         .send(requestData)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .expect(200)
         .expect((res: Response) => {
           expect(res.body.sum).toEqual(-30)
@@ -45,6 +46,7 @@ describe('Payment history endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .get('/payment/history')
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .send(requestData)
         .expect(200)
         .expect((res: Response) => {
@@ -63,6 +65,7 @@ describe('Payment history endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .get('/payment/history')
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .send(requestData)
         .expect(200)
         .expect((res: Response) => {
@@ -82,6 +85,7 @@ describe('Payment history endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .get('/payment/history')
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .send(requestData)
         .expect(200)
         .expect((res: Response) => {
@@ -90,6 +94,34 @@ describe('Payment history endpoint scenarios', () => {
           expect(res.body.items).toMatchObject([{
             ...expectedPayment
           }])
+        })
+    )
+  })
+
+  it('After deleting a payment on the range of the request, it should not include it in the history', async () => {
+    const requestData = {
+      contractId: 17689,
+      startDate: '2010-12-09T00:00:00.000Z',
+      endDate: '2021-01-20T00:00:00.000Z'
+    }
+    return (await request
+        .agent(startApp())
+        .delete('/payment/1')
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+        .expect(200)
+        .expect(async () => {
+          return (await request
+              .agent(startApp())
+              .get('/payment/history')
+              .send(requestData)
+              .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+              .expect(200)
+              .expect((res: Response) => {
+                expect(res.body.sum).toEqual(-130)
+                expect(res.body.items.length).toEqual(3)
+                expect(res.body.items).toMatchSnapshot()
+              })
+          )
         })
     )
   })

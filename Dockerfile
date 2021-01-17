@@ -9,8 +9,6 @@ COPY . .
 RUN yarn install --pure-lockfile
 RUN yarn build
 
-# todo, remove src, migration etc and do this step on another temp container
-
 RUN echo '#!/bin/sh' > init.sh
 RUN echo 'yarn migrate:latest' >> init.sh
 RUN echo 'yarn seed:run' >> init.sh

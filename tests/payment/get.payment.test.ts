@@ -22,6 +22,7 @@ describe('Get payment endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .get(`/payment/1`)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .expect(200)
         .expect((res: Response) => {
           expect(res.body).toMatchObject({
@@ -36,6 +37,7 @@ describe('Get payment endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .get(`/payment/123456`)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .expect(404)
         .expect((res: Response) => {
           expect(res.body.message).toEqual('Not found')

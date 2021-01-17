@@ -34,6 +34,8 @@ const setUpEnvironmentVariables = (container: StartedTestContainer) => {
   process.env.DB_USER = 'test'
   process.env.DB_PASSWORD = 'test'
   process.env.DB_DATABASE = 'postgres'
+  process.env.BASIC_AUTH_NAME = 'test'
+  process.env.BASIC_AUTH_PASS = 'test'
   process.env.DB_PORT = String(container.getMappedPort(5432))
   process.env.DB_HOST = container.getHost()
 }

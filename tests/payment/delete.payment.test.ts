@@ -22,14 +22,24 @@ describe('delete payment endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .delete(`/payment/3`)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .expect(200)
-        .expect((res: Response) => {
+        .expect(async (res: Response) => {
           expect(res.body.deletedAt).toBeDefined()
           expect(res.body).toMatchObject({
             ...res.body,
             ...expectedPayment,
             deletedAt: expect.anything()
           })
+
+          return (await request
+            .agent(startApp())
+            .get(`/payment/3`)
+            .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
+            .expect(404)
+            .expect((res: Response) => {
+              expect(res.body.message).toEqual('Not found')
+            }))
         })
     )
   })
@@ -38,6 +48,7 @@ describe('delete payment endpoint scenarios', () => {
     return (await request
         .agent(startApp())
         .delete(`/payment/123456`)
+        .auth(process.env.BASIC_AUTH_NAME, process.env.BASIC_AUTH_PASS)
         .expect(404)
         .expect((res: Response) => {
           expect(res.body.message).toEqual('Not found')
