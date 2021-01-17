@@ -32,5 +32,9 @@ export async function down(knex: Knex): Promise<Knex.SchemaBuilder> {
     return knex.schema.dropTable('payment')
   }
 
-  return dropPaymentTable()
+  const dropPaymentIdSequence = (): Knex.SchemaBuilder => {
+    return knex.schema.raw('DROP SEQUENCE payment_id_seq')
+  }
+
+  return dropPaymentTable().then(dropPaymentIdSequence)
 }

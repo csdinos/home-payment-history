@@ -4,7 +4,7 @@
   "main": "app.ts",
   "license": "MIT",
   "scripts": {
-    "start": "EXTERNAL_PORT=3001 DB_USER=parserdb DB_PASSWORD=iamsecure! DB_DATABASE=postgres DB_HOST=localhost DB_PORT=5431 ts-node -r tsconfig-paths/register ./src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
     "build": "tsc --project tsconfig.json",
     "seed:make": "knex seed:make -x ts",
     "migrate:make": "knex migrate:make -x ts",
@@ -13,8 +13,12 @@
     "seed:run": "knex seed:run",
     "test": "jest --colors --silent"
   },
+  "_moduleAliases": {
+    "@appRoot": "build/src"
+  },
   "dependencies": {
     "body-parse": "^0.1.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
     "inversify": "^5.0.5",
@@ -33,6 +37,7 @@
     "@types/supertest": "^2.0.10",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
+    "module-alias": "^2.2.2",
     "supertest": "^6.1.1",
     "testcontainers": "^6.4.1",
     "ts-jest": "^26.4.4",

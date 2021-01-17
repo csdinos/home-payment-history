@@ -1,4 +1,5 @@
 const {pathsToModuleNameMapper} = require('ts-jest/utils')
+
 module.exports = {
   rootDir: './',
   testMatch: ['**/*.test.ts'],
@@ -18,6 +19,5 @@ module.exports = {
       prefix: '<rootDir>/'
     }
   ),
-  transform: {"\\.ts$": ['ts-jest']},
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts',],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
 };

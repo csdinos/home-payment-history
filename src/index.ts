@@ -1,3 +1,5 @@
+process.env.NODE_ENV === 'production' ? require('module-alias/register') : require('dotenv').config()
+
 import {startApp} from '@appRoot/app'
 import {destroyActiveConnections} from '@appRoot/utils/dbConnection'
 
