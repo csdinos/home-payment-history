@@ -5,8 +5,9 @@
 1. Run `docker-compose up hph_db` to start the postgres container
 
 ## Run it locally
-1. To run it locally we first have to migrate the database manually. To do so run `yarn migrate:latest`
-2. Run `yarn start` and enjoy!
+1. Run `yarn` to install all the packages
+2. To run it locally we first have to migrate the database manually. To do so run `yarn migrate:latest`
+3. Run `yarn start` and enjoy!
 
 ## Run it compiled through docker
 1. Run `docker-compose build` to prepare the service container
